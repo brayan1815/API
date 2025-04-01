@@ -29,8 +29,6 @@ class Categoria{
     } catch (error){
       throw new error("Error al crear la categoria")
     }
-    
-
   }
 }
 
