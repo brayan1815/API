@@ -37,7 +37,6 @@ class Categoria{
     } catch (error) {
       
     }
-    // console.log(this.nombre, this.descripcion);
   }
 
   async updateParcial(id, campos) {
@@ -50,6 +49,22 @@ class Categoria{
       return mostrar;
     } catch (error) {
       
+    }
+  }
+
+  async deleteCategoria(id){
+    try {
+      const [rows]=await connection.query("SELECT * FROM productos WHERE categoria_id=?",[id])
+      if(rows.length==0){
+        const [result]=await connection.query("DELETE FROM categorias WHERE id=?",[id]);
+        return result;
+
+      }
+      else{
+        throw new Error("no se puede eliminar esta categoria porque tiene productos asociados")
+      }
+    } catch (error) {
+      throw new Error("Error al eliminar categoria");
     }
   }
 }

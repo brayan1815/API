@@ -10,9 +10,11 @@ router.get('/', CategoriaController.getAllCategorias);
 
 router.post('/', validarCategoria, CategoriaController.createCategoria)
 
-router.put('/:id',CategoriaController.actualizarCategoria)
+router.put('/:id',validarCategoria,CategoriaController.actualizarCategoria)
 
 router.patch('/:id',CategoriaController.actualizarParcialCategoria)
+
+router.delete('/:id',CategoriaController.eliminarCategoria)
 
 
 export default router;

@@ -40,9 +40,20 @@ class CategoriaController{
       const categoria = await OBJCategoria.updateParcial(id, campos);
       res.json(categoria);
     } catch (error) {
-      
+      res.status(500).json({error:error}.message)
     }
     
+  }
+
+  static eliminarCategoria=async (req,res)=>{
+    const {id}=req.params;
+    try {
+      const OBJCategoria=new Categoria();
+      const categoria=await OBJCategoria.deleteCategoria(id);
+      res.json(categoria);
+    } catch (error) {
+      res.status(500).json({error:error.message})
+    }
   }
 }
 
