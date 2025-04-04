@@ -14,7 +14,7 @@ class Categoria{
     } 
   }
 
-  async create(nombre,descipcion) {
+  async create(nombre,descripcion) {
     try {
       const [result] = await connection.query("INSERT INTO categorias (nombre,descripcion) values (?,?)", [nombre,descripcion]);
       return {
