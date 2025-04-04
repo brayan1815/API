@@ -52,19 +52,21 @@ class Categoria{
     }
   }
 
-  async deleteCategoria(id){
-    try {
-      const [rows]=await connection.query("SELECT * FROM productos WHERE categoria_id=?",[id])
-      if(rows.length==0){
-        const [result]=await connection.query("DELETE FROM categorias WHERE id=?",[id]);
-        return result;
+  async validarCategoriaAsociada(categoria_id){
+    const [rows]=await connection.query("SELECT * FROM productos WHERE categoria_id=?",[categoria_id]);
+    return rows.length>0;
+  }
 
+
+  async deleteCategoria(id){
+    try {   
+      if(await this.validarCategoriaAsociada(id)){
+        throw new Error("no se puede eliminar la categoria porque tiene productos asosiados");
       }
-      else{
-        throw new Error("no se puede eliminar esta categoria porque tiene productos asociados")
-      }
+      const [result]=await connection.query("DELETE FROM categorias WHERE id=?",[id]);
+      return result;
     } catch (error) {
-      throw new Error("Error al eliminar categoria");
+      throw new Error(error);
     }
   }
 }
