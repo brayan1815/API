@@ -20,6 +20,17 @@ class Producto{
     } 
   }
 
+  async getForCategoria(categoria_id){
+    try {
+      const [rows]=await connection.query("SELECT * FROM productos WHERE categoria_id=?",(categoria_id));
+      if(rows.length==0){
+        return "no hay productos asociados a la categoria";
+      }else return rows;
+    } catch (error) {
+      throw new Error("Error al obtener los productos por categoria")
+    }
+  }
+
   async create() {
     try {
       const [result] = await connection.query("INSERT INTO productos (nombre,descripcion,precio,categoria_id) values (?,?,?,?)", [this.nombre, this.descripcion,this.precio,this.categoria_id]);

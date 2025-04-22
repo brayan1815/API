@@ -14,6 +14,15 @@ class Categoria{
     } 
   }
 
+  async getId(id){
+    try{
+      const [rows]=await connection.query("SELECT * FROM categorias WHERE id=?",(id));
+      return rows;
+    }catch(error){
+      throw new Error("Error al obtener la categoria por ID");
+    }
+  }
+
   async create(nombre,descripcion) {
     try {
       const [result] = await connection.query("INSERT INTO categorias (nombre,descripcion) values (?,?)", [nombre,descripcion]);

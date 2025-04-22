@@ -1,5 +1,5 @@
 import express from "express";
-import CategoriaController from "../controller/categoriaController.js";
+import CategoriaController from "../controller/CategoriaController.js";
 import { validarCategoria } from "../middlewares/validarCategoria.js";
 
 
@@ -7,6 +7,8 @@ import { validarCategoria } from "../middlewares/validarCategoria.js";
 const router = express.Router();
 
 router.get('/', CategoriaController.getAllCategorias);
+
+router.get('/:id',CategoriaController.getCategoriaWithProductos)
 
 router.post('/', validarCategoria, CategoriaController.createCategoria)
 

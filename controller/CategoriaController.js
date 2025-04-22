@@ -1,12 +1,23 @@
 
 import Categoria from "../Models/Categoria.js";
+import CategoriasProductos from "../services/CategoriasProductos.js";
 
 class CategoriaController{
   static getAllCategorias = async(req,res) => {
     const OBJCategoria = new Categoria();
     const categorias = await OBJCategoria.getAll();
     res.json(categorias);
-    
+  }
+
+  static getCategoriaWithProductos=async(req,res)=>{
+    const {id}=req.params;
+    try {
+      const OBJCategoriasProductos=new CategoriasProductos();
+      const categoriaWhitProductos=await OBJCategoriasProductos.getCategoriaProductosId(id);
+      res.status(201).json(categoriaWhitProductos);
+    } catch (error) {
+      res.status(500).json({error:error.mensaje});
+    }
   }
 
   static createCategoria = async (req, res) => {
